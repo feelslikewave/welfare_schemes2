@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahayta AI — Innovation Marathon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Baloo+2:wght@400;600;700;800&family=Hind:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --saffron-glow: rgba(255,153,51,0.4);
+            --green: #4CAF50;
+            --navy: #000080;
+            --deep: #05050f;
+            --mid: #0a0a2e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--deep);
+            color: white;
+            font-family: 'Hind', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── STAR FIELD BACKGROUND ── */
+        .stars {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+            animation: twinkle var(--dur) ease-in-out infinite alternate;
+        }
+        @keyframes twinkle {
+            from { opacity: 0.1; transform: scale(0.8); }
+            to   { opacity: 0.9; transform: scale(1.2); }
+        }
+
+        /* ── TRICOLOR BEAM ── */
+        .beam {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #FF9933 33.3%, white 33.3% 66.6%, #4CAF50 66.6%);
+            z-index: 10;
+        }
+
+        /* ── MAIN CONTENT ── */
+        .scene {
+            position: relative;
+            z-index: 5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        /* ── FADE IN ANIMATIONS ── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards;
+        }
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── LOGO GLOW PULSE ── */
+        .logo-wrap {
+            animation: fadeUp 1.2s ease forwards, logoPulse 3s ease-in-out 1.5s infinite;
+            opacity: 0;
+            margin-bottom: 2.5rem;
+            filter: drop-shadow(0 0 30px rgba(255,153,51,0.5));
+        }
+        @keyframes logoPulse {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(255,153,51,0.4)); }
+            50%       { filter: drop-shadow(0 0 50px rgba(255,153,51,0.9)); }
+        }
+
+        /* ── PRESENTS TAG ── */
+        .presents {
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 6px;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            animation-delay: 0.3s;
+        }
+
+        /* ── MARATHON BADGE ── */
+        .marathon-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255,153,51,0.12);
+            border: 1px solid rgba(255,153,51,0.35);
+            border-radius: 50px;
+            padding: 0.45rem 1.2rem;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            color: var(--saffron);
+            font-family: 'Cinzel', serif;
+            margin-bottom: 2rem;
+            animation-delay: 0.5s;
+        }
+        .marathon-badge::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--saffron);
+            animation: blink 1.2s ease-in-out infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+        /* ── DIVIDER ── */
+        .divider {
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--saffron), transparent);
+            margin: 2rem auto;
+            animation-delay: 1.2s;
+        }
+
+        /* ── TEAM SECTION ── */
+        .team-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            color: rgba(255,255,255,0.35);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            animation-delay: 1.4s;
+        }
+
+        /* ── TEAM NAME CARD ── */
+        .team-name-card {
+            background: linear-gradient(135deg, rgba(255,153,51,0.1), rgba(0,0,128,0.2));
+            border: 1px solid rgba(255,153,51,0.3);
+            border-radius: 16px;
+            padding: 1.5rem 3rem;
+            margin-bottom: 1rem;
+            animation-delay: 1.6s;
+            position: relative;
+            overflow: hidden;
+        }
+        .team-name-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,153,51,0.05) 50%, transparent 60%);
+            animation: shimmer 4s linear infinite;
+        }
+        @keyframes shimmer { from{transform:translateX(-100%) rotate(45deg)} to{transform:translateX(100%) rotate(45deg)} }
+        .team-name-main {
+            font-family: 'Baloo 2', cursive;
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: white;
+            line-height: 1;
+            text-shadow: 0 0 40px rgba(255,153,51,0.6);
+        }
+        .team-name-main .accent { color: var(--saffron); }
+        .team-name-meaning {
+            font-size: 0.82rem;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.45);
+            margin-top: 0.4rem;
+        }
+
+        /* ── ALTERNATE NAMES ── */
+        .alt-names-label {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            margin: 1.8rem 0 0.9rem;
+            animation-delay: 2s;
+        }
+        .alt-names {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            animation-delay: 2.2s;
+        }
+        .alt-chip {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50px;
+            padding: 0.35rem 1rem;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.65);
+            letter-spacing: 1px;
+            transition: all 0.25s;
+            cursor: default;
+        }
+        .alt-chip:hover {
+            background: rgba(255,153,51,0.15);
+            border-color: rgba(255,153,51,0.4);
+            color: var(--saffron);
+            transform: translateY(-2px);
+        }
+
+        /* ── BOTTOM CREDITS ── */
+        .credits {
+            margin-top: 3rem;
+            animation-delay: 2.5s;
+        }
+        .built-with {
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.25);
+            text-transform: uppercase;
+            margin-bottom: 0.7rem;
+        }
+        .tech-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        .tech-pill {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 6px;
+            padding: 0.25rem 0.65rem;
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.5px;
+        }
+
+        /* ── INDIA FLAG DOTS ── */
+        .flag-dots {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 2.5rem;
+            animation-delay: 2.8s;
+        }
+        .fdot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+        }
+
+        /* ── FOOTER LINE ── */
+        .footer-line {
+            margin-top: 1.2rem;
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,0.2);
+            animation-delay: 3s;
+        }
+
+        /* ── FLOATING PARTICLES ── */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            animation: floatUp var(--dur) ease-in infinite;
+            opacity: 0;
+        }
+        @keyframes floatUp {
+            0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+            10%  { opacity: 0.6; }
+            90%  { opacity: 0.3; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top tricolor beam -->
+<div class="beam"></div>
+
+<!-- Star field -->
+<div class="stars" id="stars"></div>
+
+<!-- Floating particles -->
+<div id="particles"></div>
+
+<!-- Main scene -->
+<div class="scene">
+
+    <!-- INNOVATION MARATHON badge -->
+    <div class="fade-in marathon-badge" style="animation-delay:0.3s">
+        INNOVATION MARATHON 2026
+    </div>
+
+    <!-- LOGO -->
+    <div class="logo-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 95" width="320" height="95">
+          <defs>
+            <linearGradient id="lsg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#FF9933"/>
+              <stop offset="100%" style="stop-color:#e65c00"/>
+            </linearGradient>
+            <filter id="lglow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="3" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="lsh" x="-10%" y="-10%" width="130%" height="140%">
+              <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(255,153,51,0.5)"/>
+            </filter>
+          </defs>
+          <!-- Circle -->
+          <circle cx="47" cy="47" r="40" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+          <!-- Tricolor arcs -->
+          <path d="M 10 47 A 37 37 0 0 1 47 10" stroke="#FF9933" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M 47 10 A 37 37 0 0 1 84 47" stroke="white"   stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M 84 47 A 37 37 0 0 1 47 84" stroke="#4CAF50" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M 47 84 A 37 37 0 0 1 10 47" stroke="rgba(255,255,255,0.15)" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <!-- Palm -->
+          <ellipse cx="47" cy="57" rx="14" ry="10" fill="white" opacity="0.92"/>
+          <rect x="33" y="30" width="6"   height="22" rx="3"   fill="white" opacity="0.92"/>
+          <rect x="41" y="25" width="6"   height="28" rx="3"   fill="white" opacity="0.92"/>
+          <rect x="49" y="27" width="6"   height="25" rx="3"   fill="white" opacity="0.92"/>
+          <rect x="57" y="32" width="5.5" height="19" rx="2.5" fill="white" opacity="0.92"/>
+          <ellipse cx="27" cy="52" rx="4" ry="8" fill="white" opacity="0.9" transform="rotate(-15 27 52)"/>
+          <!-- Chakra -->
+          <circle cx="47" cy="57" r="5" fill="url(#lsg)"/>
+          <g stroke="white" stroke-width="0.9">
+            <line x1="47" y1="52.5" x2="47" y2="51"/><line x1="47" y1="61.5" x2="47" y2="63"/>
+            <line x1="43.5" y1="57" x2="42" y2="57"/><line x1="50.5" y1="57" x2="52" y2="57"/>
+            <line x1="44.8" y1="54.8" x2="43.7" y2="53.7"/><line x1="49.2" y1="59.2" x2="50.3" y2="60.3"/>
+            <line x1="49.2" y1="54.8" x2="50.3" y2="53.7"/><line x1="44.8" y1="59.2" x2="43.7" y2="60.3"/>
+          </g>
+          <!-- Sparks -->
+          <circle cx="72" cy="18" r="4"   fill="#FF9933" filter="url(#lglow)"/>
+          <circle cx="80" cy="26" r="2.5" fill="#FF9933" opacity="0.7"/>
+          <circle cx="76" cy="13" r="2"   fill="white"   opacity="0.8"/>
+          <!-- Text -->
+          <text x="100" y="44" font-family="'Baloo 2','Arial Black',sans-serif" font-size="32" font-weight="800" letter-spacing="2" fill="white" filter="url(#lsh)">SAHAYTA</text>
+          <text x="264" y="44" font-family="'Baloo 2','Arial Black',sans-serif" font-size="32" font-weight="800" fill="url(#lsg)" filter="url(#lglow)">AI</text>
+          <!-- Tricolor underline -->
+          <rect x="100" y="50" width="84" height="4" rx="2" fill="#FF9933"/>
+          <rect x="184" y="50" width="84" height="4" rx="2" fill="#4CAF50"/>
+          <!-- Tagline -->
+          <text x="100" y="72" font-family="'Hind','Arial',sans-serif" font-size="11" letter-spacing="3" fill="rgba(255,255,255,0.65)">WELFARE FOR EVERY INDIAN</text>
+        </svg>
+    </div>
+
+    <!-- PRESENTS -->
+    <div class="fade-in presents" style="animation-delay:0.8s">PROUDLY PRESENTED BY</div>
+
+    <!-- DIVIDER -->
+    <div class="fade-in divider" style="animation-delay:1s"></div>
+
+    <!-- TEAM LABEL -->
+    <div class="fade-in team-label" style="animation-delay:1.4s">OUR TEAM</div>
+
+    <!-- RECOMMENDED TEAM NAME -->
+    <div class="fade-in team-name-card" style="animation-delay:1.6s">
+        <div class="team-name-main">TEAM <span class="accent">UDAAN</span></div>
+        <div class="team-name-meaning">उड़ान &nbsp;·&nbsp; "The Flight" &nbsp;·&nbsp; Rising to Empower Every Indian</div>
+    </div>
+
+    <!-- ALT NAMES -->
+    
+    <!-- BUILT WITH -->
+    <div class="fade-in credits" style="animation-delay:2.5s">
+        <div class="built-with">Built With</div>
+        <div class="tech-pills">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">AI Summarization</span>
+            <span class="tech-pill">Neural Translation</span>
+            <span class="tech-pill">Text-to-Speech</span>
+            <span class="tech-pill">Indian Sign Language</span>
+            <span class="tech-pill">13 Indian Languages</span>
+        </div>
+    </div>
+
+    <!-- INDIA FLAG DOTS -->
+    <div class="fade-in flag-dots" style="animation-delay:2.8s">
+        <div class="fdot" style="background:#FF9933;"></div>
+        <div class="fdot" style="background:#FF9933;"></div>
+        <div class="fdot" style="background:white;"></div>
+        <div class="fdot" style="background:#000080; border: 1px solid rgba(255,255,255,0.3);"></div>
+        <div class="fdot" style="background:white;"></div>
+        <div class="fdot" style="background:#4CAF50;"></div>
+        <div class="fdot" style="background:#4CAF50;"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="fade-in footer-line" style="animation-delay:3s">
+        🇮🇳 &nbsp; INNOVATION MARATHON 2026 &nbsp;·&nbsp; SAHAYTA AI &nbsp;·&nbsp; EMPOWERING INDIA ONE SCHEME AT A TIME &nbsp; 🇮🇳
+    </div>
+
+</div>
+
+<script>
+// ── Generate stars ──
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 160; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `
+        width:${size}px; height:${size}px;
+        top:${Math.random()*100}%;
+        left:${Math.random()*100}%;
+        --dur:${Math.random()*3+2}s;
+        animation-delay:${Math.random()*4}s;
+    `;
+    starsEl.appendChild(s);
+}
+
+// ── Generate floating particles ──
+const particlesEl = document.getElementById('particles');
+const colors = ['#FF9933','#4CAF50','white','#FF9933'];
+for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 5 + 2;
+    p.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}%;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        --dur:${Math.random()*8+6}s;
+        animation-delay:${Math.random()*8}s;
+        opacity:0.5;
+    `;
+    particlesEl.appendChild(p);
+}
+</script>
+</body>
+</html>

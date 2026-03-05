@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahayta AI – Government Welfare Schemes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Hind:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --saffron: #FF9933;
+            --green: #138808;
+            --navy: #000080;
+            --white: #ffffff;
+            --light-bg: #f0f4ff;
+            --card-shadow: 0 4px 20px rgba(0,0,128,0.10);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background: var(--light-bg);
+            font-family: 'Hind', sans-serif;
+            min-height: 100vh;
+            color: #222;
+        }
+
+        /* ── Navbar ── */
+        .navbar {
+            background: var(--navy) !important;
+            padding: 0.75rem 0;
+            box-shadow: 0 2px 12px rgba(0,0,128,0.3);
+        }
+        .navbar-brand { padding: 0 !important; line-height:1; }
+        .navbar-brand-text-unused {
+            font-family: 'Baloo 2', cursive;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--saffron) !important;
+            letter-spacing: 0.5px;
+        }
+        .navbar-brand span { color: var(--white); }
+
+        /* Language selector in navbar */
+        .lang-select-nav {
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            border-radius: 8px;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.9rem;
+            min-width: 160px;
+            cursor: pointer;
+        }
+        .lang-select-nav option { color: #222; background: white; }
+        .lang-select-nav:focus { outline: none; border-color: var(--saffron); }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, #1a237e 60%, #283593 100%);
+            color: white;
+            padding: 3.5rem 2rem 2.5rem;
+            text-align: center;
+            border-bottom: 4px solid var(--saffron);
+        }
+        .hero h1 {
+            font-family: 'Baloo 2', cursive;
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .hero h1 .accent { color: var(--saffron); }
+        .hero p { font-size: 1.1rem; opacity: 0.85; margin: 0; }
+        .tricolor-bar {
+            height: 5px;
+            background: linear-gradient(to right, var(--saffron) 33.3%, white 33.3%, white 66.6%, var(--green) 66.6%);
+            margin-bottom: 0;
+        }
+
+        /* ── Search Card ── */
+        .search-card {
+            background: white;
+            border-radius: 14px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            margin-top: -1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+        .search-card h3 {
+            font-family: 'Baloo 2', cursive;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1.2rem;
+        }
+        .form-label { font-weight: 600; color: #444; font-size: 0.9rem; }
+        .form-select, .form-control {
+            border: 1.5px solid #dde2f0;
+            border-radius: 8px;
+            padding: 0.55rem 0.85rem;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+        .form-select:focus, .form-control:focus {
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(0,0,128,0.08);
+        }
+        .btn-search {
+            background: linear-gradient(135deg, var(--navy), #3949ab);
+            color: white;
+            border: none;
+            border-radius: 9px;
+            padding: 0.65rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            transition: all 0.2s;
+        }
+        .btn-search:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,128,0.25); color: white; }
+
+        /* ── Views ── */
+        #searchView, #resultsView, #detailView { transition: opacity 0.25s; }
+
+        /* ── Results ── */
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.2rem;
+        }
+        .results-header h3 {
+            font-family: 'Baloo 2', cursive;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 0;
+        }
+        .result-count {
+            background: var(--saffron);
+            color: white;
+            border-radius: 20px;
+            padding: 0.2rem 0.9rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .btn-back {
+            background: white;
+            border: 2px solid var(--navy);
+            color: var(--navy);
+            border-radius: 8px;
+            padding: 0.4rem 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .btn-back:hover { background: var(--navy); color: white; }
+
+        /* ── Scheme Card ── */
+        .scheme-card {
+            background: white;
+            border-left: 5px solid var(--navy);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 0.9rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.22s;
+        }
+        .scheme-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,128,0.15);
+            border-left-color: var(--saffron);
+        }
+        .scheme-card-title {
+            font-family: 'Baloo 2', cursive;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--navy);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: color 0.15s;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .scheme-card-title:hover {
+            color: var(--saffron);
+            border-bottom: 2px solid var(--saffron);
+            text-decoration: none;
+        }
+        .scheme-card p { color: #555; font-size: 0.92rem; margin: 0.4rem 0 0.7rem; line-height: 1.5; }
+        .badge-state { background: #e3f2fd; color: #1565c0; border-radius: 20px; padding: 0.2rem 0.75rem; font-size: 0.78rem; font-weight: 600; margin-right: 0.4rem; }
+        .badge-cat { background: #fff3e0; color: #e65100; border-radius: 20px; padding: 0.2rem 0.75rem; font-size: 0.78rem; font-weight: 600; }
+
+        /* ── Detail View ── */
+        .detail-card {
+            background: white;
+            border-radius: 14px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+        .detail-title {
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 0.4rem;
+        }
+        .detail-badges { margin-bottom: 1.2rem; }
+        .detail-section {
+            background: #f8f9ff;
+            border-radius: 9px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--navy);
+        }
+        .detail-section h6 {
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 0.4rem;
+            font-size: 0.95rem;
+        }
+        .detail-section p { margin: 0; color: #444; font-size: 0.95rem; line-height: 1.6; }
+
+        /* Action buttons */
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.4rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #eee;
+        }
+        .btn-act {
+            border-radius: 9px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .btn-act-summary { background: #e3f2fd; color: #1565c0; border-color: #1565c0; }
+        .btn-act-summary:hover { background: #1565c0; color: white; }
+        .btn-act-audio { background: #e8f5e9; color: var(--green); border-color: var(--green); }
+        .btn-act-audio:hover { background: var(--green); color: white; }
+        .btn-act-sign { background: #fff8e1; color: #f57f17; border-color: #f57f17; }
+        .btn-act-sign:hover { background: #f57f17; color: white; }
+        .btn-act-link { background: #fce4ec; color: #c62828; border-color: #c62828; }
+        .btn-act-link:hover { background: #c62828; color: white; text-decoration: none; }
+
+        /* Output boxes */
+        .output-box {
+            margin-top: 1.2rem;
+            padding: 1rem 1.2rem;
+            background: #f0f4ff;
+            border-radius: 10px;
+            border-left: 4px solid var(--saffron);
+            display: none;
+            overflow: hidden;
+            max-width: 100%;
+        }
+        .output-box p, .output-box span {
+            word-break: break-word;
+            overflow-wrap: anywhere;
+            white-space: normal;
+            max-width: 100%;
+        }
+        .output-box.show { display: block; }
+        .output-box h6 { font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+        audio, video { width: 100%; border-radius: 7px; margin-top: 0.5rem; }
+
+        /* Spinner */
+        .spin-wrap { display: flex; align-items: center; gap: 0.5rem; color: var(--navy); font-size: 0.95rem; padding: 0.5rem 0; }
+        .spinner-sm { width: 18px; height: 18px; border: 3px solid #ccc; border-top-color: var(--navy); border-radius: 50%; animation: spin 0.7s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* No results */
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+        }
+        .no-results i { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            color: #888;
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 { font-size: 1.6rem; }
+            .action-bar { flex-direction: column; }
+            .btn-act { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Tricolor top bar -->
+<div class="tricolor-bar"></div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container d-flex align-items-center justify-content-between">
+        <a class="navbar-brand" href="#" style="padding:2px 0; line-height:1;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 60" height="46" style="display:block;">
+              <defs>
+                <linearGradient id="nb_sg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#FF9933"/>
+                  <stop offset="100%" style="stop-color:#e65c00"/>
+                </linearGradient>
+                <filter id="nb_glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="1.5" result="b"/>
+                  <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <filter id="nb_sh" x="-10%" y="-10%" width="130%" height="140%">
+                  <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.35)"/>
+                </filter>
+              </defs>
+              <!-- Outer glow ring -->
+              <circle cx="30" cy="30" r="26" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+              <!-- Tricolor arcs -->
+              <path d="M 7 30 A 23 23 0 0 1 30 7"  stroke="#FF9933" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path d="M 30 7 A 23 23 0 0 1 53 30"  stroke="white"   stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path d="M 53 30 A 23 23 0 0 1 30 53"  stroke="#4CAF50" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <path d="M 30 53 A 23 23 0 0 1 7 30"   stroke="rgba(255,255,255,0.18)" stroke-width="4" fill="none" stroke-linecap="round"/>
+              <!-- Palm base -->
+              <ellipse cx="30" cy="38" rx="10" ry="7.5" fill="white" opacity="0.93"/>
+              <!-- Fingers -->
+              <rect x="21" y="19" width="5"   height="16" rx="2.5" fill="white" opacity="0.93"/>
+              <rect x="27.5" y="16" width="5" height="19" rx="2.5" fill="white" opacity="0.93"/>
+              <rect x="34" y="18" width="5"   height="17" rx="2.5" fill="white" opacity="0.93"/>
+              <rect x="40" y="22" width="4"   height="13" rx="2"   fill="white" opacity="0.93"/>
+              <!-- Thumb -->
+              <ellipse cx="18" cy="34" rx="3" ry="6" fill="white" opacity="0.9" transform="rotate(-15 18 34)"/>
+              <!-- Ashoka Chakra in palm -->
+              <circle cx="30" cy="38" r="4" fill="url(#nb_sg)"/>
+              <g stroke="white" stroke-width="0.75">
+                <line x1="30" y1="34.5" x2="30" y2="33.5"/>
+                <line x1="30" y1="41.5" x2="30" y2="42.5"/>
+                <line x1="26.5" y1="38" x2="25.5" y2="38"/>
+                <line x1="33.5" y1="38" x2="34.5" y2="38"/>
+                <line x1="27.8" y1="35.8" x2="27" y2="35"/>
+                <line x1="32.2" y1="40.2" x2="33" y2="41"/>
+                <line x1="32.2" y1="35.8" x2="33" y2="35"/>
+                <line x1="27.8" y1="40.2" x2="27" y2="41"/>
+              </g>
+              <!-- AI spark dots -->
+              <circle cx="47" cy="12" r="3"   fill="#FF9933" filter="url(#nb_glow)"/>
+              <circle cx="53" cy="18" r="1.8" fill="#FF9933" opacity="0.7"/>
+              <circle cx="51" cy="8"  r="1.4" fill="white"   opacity="0.8"/>
+              <!-- SAHAYTA text -->
+              <text x="68" y="30"
+                font-family="'Baloo 2','Arial Black',sans-serif"
+                font-size="21" font-weight="800" letter-spacing="1.8"
+                fill="white" filter="url(#nb_sh)">SAHAYTA</text>
+              <!-- AI in saffron -->
+              <text x="187" y="30"
+                font-family="'Baloo 2','Arial Black',sans-serif"
+                font-size="21" font-weight="800"
+                fill="url(#nb_sg)" filter="url(#nb_glow)">AI</text>
+              <!-- Tricolor underline bar -->
+              <rect x="68"  y="34" width="60" height="2.5" rx="1.2" fill="#FF9933"/>
+              <rect x="128" y="34" width="60" height="2.5" rx="1.2" fill="#4CAF50"/>
+              <!-- Tagline -->
+              <text x="68" y="50"
+                font-family="'Hind','Arial',sans-serif"
+                font-size="7.5" letter-spacing="2.2"
+                fill="rgba(255,255,255,0.6)">WELFARE FOR EVERY INDIAN</text>
+            </svg>
+        </a>
+        <div class="d-flex align-items-center gap-2">
+            <i class="fas fa-globe" style="color:var(--saffron)"></i>
+            <select class="lang-select-nav" id="langSelect" onchange="changeLanguage()">
+                <option value="en">🇬🇧 English</option>
+                <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
+                <option value="bn">বাংলা (Bengali)</option>
+                <option value="te">తెలుగు (Telugu)</option>
+                <option value="mr">मराठी (Marathi)</option>
+                <option value="ta">தமிழ் (Tamil)</option>
+                <option value="gu">ગુજરાતી (Gujarati)</option>
+                <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                <option value="ml">മലയാളം (Malayalam)</option>
+                <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                <option value="or">ଓଡ଼ିଆ (Odia)</option>
+                <option value="as">অসমীয়া (Assamese)</option>
+                <option value="ur">اردو (Urdu)</option>
+            </select>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+    
+  <!-- Circle -->
+  <circle cx="47" cy="47" r="40" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="2"/>
+  <!-- Tricolor arcs -->
+  <path d="M 10 47 A 37 37 0 0 1 47 10" stroke="#FF9933" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M 47 10 A 37 37 0 0 1 84 47" stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M 84 47 A 37 37 0 0 1 47 84" stroke="#4CAF50" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M 47 84 A 37 37 0 0 1 10 47" stroke="rgba(255,255,255,0.2)" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- Palm base -->
+  <ellipse cx="47" cy="56" rx="14" ry="10" fill="white" opacity="0.92"/>
+  <!-- Fingers -->
+  <rect x="33" y="30" width="6" height="22" rx="3" fill="white" opacity="0.92"/>
+  <rect x="41" y="25" width="6" height="28" rx="3" fill="white" opacity="0.92"/>
+  <rect x="49" y="27" width="6" height="25" rx="3" fill="white" opacity="0.92"/>
+  <rect x="57" y="32" width="5.5" height="19" rx="2.5" fill="white" opacity="0.92"/>
+  <ellipse cx="27" cy="51" rx="4" ry="8" fill="white" opacity="0.9" transform="rotate(-15 27 51)"/>
+  <!-- Chakra -->
+  <circle cx="47" cy="56" r="5" fill="url(#hsg)"/>
+  <g stroke="white" stroke-width="0.9">
+    <line x1="47" y1="51.5" x2="47" y2="50"/><line x1="47" y1="60.5" x2="47" y2="62"/>
+    <line x1="43.5" y1="56" x2="42" y2="56"/><line x1="50.5" y1="56" x2="52" y2="56"/>
+    <line x1="44.8" y1="53.8" x2="43.7" y2="52.7"/><line x1="49.2" y1="58.2" x2="50.3" y2="59.3"/>
+    <line x1="49.2" y1="53.8" x2="50.3" y2="52.7"/><line x1="44.8" y1="58.2" x2="43.7" y2="59.3"/>
+  </g>
+  <!-- Sparks -->
+  <circle cx="72" cy="18" r="4" fill="#FF9933" filter="url(#hglow)"/>
+  <circle cx="80" cy="26" r="2.5" fill="#FF9933" opacity="0.7"/>
+  <circle cx="76" cy="13" r="2" fill="white" opacity="0.8"/>
+  <!-- SAHAYTA -->
+  <text x="100" y="44" font-family="'Baloo 2','Arial Black',sans-serif" font-size="32" font-weight="800" letter-spacing="2" fill="white" filter="url(#hsh)">SAHAYTA</text>
+  <!-- AI in saffron -->
+  <text x="264" y="44" font-family="'Baloo 2','Arial Black',sans-serif" font-size="32" font-weight="800" fill="url(#hsg)" filter="url(#hglow)">AI</text>
+  <!-- Tricolor underline -->
+  <rect x="100" y="50" width="84" height="4" rx="2" fill="#FF9933"/>
+  <rect x="184" y="50" width="84" height="4" rx="2" fill="#4CAF50"/>
+  <!-- Tagline -->
+  <text x="100" y="72" font-family="'Hind','Arial',sans-serif" font-size="11" letter-spacing="3" fill="rgba(255,255,255,0.75)">WELFARE FOR EVERY INDIAN</text>
+  <!-- Decorative dots -->
+  <circle cx="100" cy="84" r="2" fill="#FF9933" opacity="0.7"/>
+  <circle cx="109" cy="84" r="2" fill="white" opacity="0.6"/>
+  <circle cx="118" cy="84" r="2" fill="#4CAF50" opacity="0.7"/>
+</svg>
+    <h1>🇮🇳 <span class="accent" id="heroTitle">Discover Government</span> Welfare Schemes</h1>
+    <p id="heroSubtitle">Find schemes by state & category • Listen in your language • Watch in Sign Language</p>
+</div>
+
+<div class="container py-4">
+
+    <!-- ═══ SEARCH VIEW ═══ -->
+    <div id="searchView"><br><br>
+        <div class="search-card">
+            <h3><i class="fas fa-search me-2"></i><span id="searchTitle">Search Schemes</span></h3>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label" id="labelState">Select State</label>
+                    <select class="form-select" id="stateSelect">
+                        <option value="" id="optAllIndia">All India</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" id="labelCategory">Select Category</label>
+                    <select class="form-select" id="categorySelect">
+                        <option value="" id="optAllCat">All Categories</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" id="labelKeyword">Keyword</label>
+                    <input type="text" class="form-control" id="keywordInput" placeholder="e.g., farmer, health">
+                </div>
+            </div>
+            <button class="btn btn-search mt-3" onclick="searchSchemes()">
+                <i class="fas fa-search me-2"></i><span id="btnSearch">Search Schemes</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══ RESULTS VIEW ═══ -->
+    <div id="resultsView" style="display:none;">
+        <div class="results-header">
+            <div class="d-flex align-items-center gap-3">
+                <h3 id="resultsHeading">Results</h3>
+                <span class="result-count" id="resultCount">0</span>
+            </div>
+            <button class="btn-back" onclick="showSearch()">
+                <i class="fas fa-arrow-left me-1"></i><span id="btnBackSearch">Back to Search</span>
+            </button>
+        </div>
+        <div id="schemesList"></div>
+    </div>
+
+    <!-- ═══ DETAIL VIEW ═══ -->
+    <div id="detailView" style="display:none;">
+        <div class="mb-3">
+            <button class="btn-back" onclick="showResults()">
+                <i class="fas fa-arrow-left me-1"></i><span id="btnBackResults">Back to Results</span>
+            </button>
+        </div>
+        <div class="detail-card">
+            <div class="detail-title" id="detailName"></div>
+            <div class="detail-badges" id="detailBadges"></div>
+
+            <div class="detail-section">
+                <h6><i class="fas fa-info-circle me-1"></i> <span id="labelDesc">Description</span></h6>
+                <p id="detailDescription"></p>
+            </div>
+            <div class="detail-section">
+                <h6><i class="fas fa-gift me-1"></i> <span id="labelBenefits">Benefits</span></h6>
+                <p id="detailBenefits"></p>
+            </div>
+            <div class="detail-section">
+                <h6><i class="fas fa-check-circle me-1"></i> <span id="labelEligibility">Eligibility</span></h6>
+                <p id="detailEligibility"></p>
+            </div>
+            <div class="detail-section">
+                <h6><i class="fas fa-file-alt me-1"></i> <span id="labelDocuments">Documents Required</span></h6>
+                <p id="detailDocuments"></p>
+            </div>
+            <div class="detail-section">
+                <h6><i class="fas fa-clipboard-list me-1"></i> <span id="labelHowToApply">How to Apply</span></h6>
+                <p id="detailHowToApply"></p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-bar">
+                <button class="btn-act btn-act-summary" onclick="getSummary()">
+                    <i class="fas fa-file-alt me-1"></i><span id="btnSummary">AI Summary</span>
+                </button>
+                <button class="btn-act btn-act-audio" onclick="getAudio()">
+                    <i class="fas fa-volume-up me-1"></i><span id="btnListen">Listen</span>
+                </button>
+                <button class="btn-act btn-act-sign" onclick="getSignLanguage()">
+                    <i class="fas fa-sign-language me-1"></i><span id="btnSign">Sign Language</span>
+                </button>
+                <a id="officialLink" href="#" target="_blank" class="btn-act btn-act-link">
+                    <i class="fas fa-external-link-alt me-1"></i><span id="btnOfficial">Official Website</span>
+                </a>
+            </div>
+
+            <!-- Output boxes -->
+            <div class="output-box" id="summaryBox">
+                <h6><i class="fas fa-robot me-1"></i> <span id="summaryBoxTitle">AI Summary</span></h6>
+                <p id="summaryText"></p>
+            </div>
+            <div class="output-box" id="audioBox">
+                <h6><i class="fas fa-headphones me-1"></i> <span id="audioBoxTitle">Audio</span></h6>
+                <audio controls id="audioPlayer"></audio>
+            </div>
+            <div class="output-box" id="videoBox">
+                <h6><i class="fas fa-sign-language me-1"></i> <span id="videoBoxTitle">Sign Language Video</span></h6>
+                <p id="videoMeta" class="text-muted small" style="word-break:break-all; white-space:normal; overflow-wrap:anywhere; max-width:100%;"></p>                <video controls id="videoPlayer"></video>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>🤝 Sahayta AI &mdash; Empowering citizens with government scheme information &nbsp;|&nbsp; Made with ❤️ for India</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let currentScheme = null;
+let currentLanguage = 'en';
+let lastResults = [];
+
+// ─────────────────────────────────────────────
+// UI TRANSLATIONS (for website labels/buttons)
+// ─────────────────────────────────────────────
+const UI_STRINGS = {
+    en: {
+        heroTitle: "Discover Government",
+        heroSubtitle: "Find schemes by state & category • Listen in your language • Watch in Sign Language",
+        searchTitle: "Search Schemes",
+        labelState: "Select State",
+        labelCategory: "Select Category",
+        labelKeyword: "Keyword",
+        optAllIndia: "All India",
+        optAllCat: "All Categories",
+        btnSearch: "Search Schemes",
+        resultsHeading: "Results",
+        btnBackSearch: "Back to Search",
+        btnBackResults: "Back to Results",
+        labelDesc: "Description",
+        labelBenefits: "Benefits",
+        labelEligibility: "Eligibility",
+        labelDocuments: "Documents Required",
+        labelHowToApply: "How to Apply",
+        btnSummary: "AI Summary",
+        btnListen: "Listen",
+        btnSign: "Sign Language",
+        btnOfficial: "Official Website",
+        summaryBoxTitle: "AI Summary",
+        audioBoxTitle: "Audio",
+        videoBoxTitle: "Sign Language Video",
+        noResults: "No schemes found. Try different filters.",
+        loading: "Loading...",
+        keywordPlaceholder: "e.g., farmer, health"
+    },
+    hi: {
+        heroTitle: "सरकारी योजनाएं",
+        heroSubtitle: "राज्य और श्रेणी से योजनाएं खोजें • अपनी भाषा में सुनें • सांकेतिक भाषा में देखें",
+        searchTitle: "योजनाएं खोजें",
+        labelState: "राज्य चुनें",
+        labelCategory: "श्रेणी चुनें",
+        labelKeyword: "कीवर्ड",
+        optAllIndia: "सभी भारत",
+        optAllCat: "सभी श्रेणियां",
+        btnSearch: "योजनाएं खोजें",
+        resultsHeading: "परिणाम",
+        btnBackSearch: "खोज पर वापस",
+        btnBackResults: "परिणामों पर वापस",
+        labelDesc: "विवरण",
+        labelBenefits: "लाभ",
+        labelEligibility: "पात्रता",
+        labelDocuments: "आवश्यक दस्तावेज़",
+        labelHowToApply: "आवेदन कैसे करें",
+        btnSummary: "AI सारांश",
+        btnListen: "सुनें",
+        btnSign: "सांकेतिक भाषा",
+        btnOfficial: "आधिकारिक वेबसाइट",
+        summaryBoxTitle: "AI सारांश",
+        audioBoxTitle: "ऑडियो",
+        videoBoxTitle: "सांकेतिक भाषा वीडियो",
+        noResults: "कोई योजना नहीं मिली। अलग फिल्टर आज़माएं।",
+        loading: "लोड हो रहा है...",
+        keywordPlaceholder: "जैसे: किसान, स्वास्थ्य"
+    },
+    bn: {
+        heroTitle: "সরকারি প্রকল্প",
+        heroSubtitle: "রাজ্য ও বিভাগ অনুযায়ী প্রকল্প খুঁজুন • আপনার ভাষায় শুনুন",
+        searchTitle: "প্রকল্প খুঁজুন",
+        labelState: "রাজ্য নির্বাচন করুন",
+        labelCategory: "বিভাগ নির্বাচন করুন",
+        labelKeyword: "কীওয়ার্ড",
+        optAllIndia: "সমগ্র ভারত",
+        optAllCat: "সকল বিভাগ",
+        btnSearch: "প্রকল্প খুঁজুন",
+        resultsHeading: "ফলাফল",
+        btnBackSearch: "অনুসন্ধানে ফিরুন",
+        btnBackResults: "ফলাফলে ফিরুন",
+        labelDesc: "বিবরণ",
+        labelBenefits: "সুবিধা",
+        labelEligibility: "যোগ্যতা",
+        labelDocuments: "প্রয়োজনীয় নথি",
+        labelHowToApply: "আবেদন কীভাবে করবেন",
+        btnSummary: "AI সারাংশ",
+        btnListen: "শুনুন",
+        btnSign: "সাংকেতিক ভাষা",
+        btnOfficial: "অফিসিয়াল ওয়েবসাইট",
+        summaryBoxTitle: "AI সারাংশ",
+        audioBoxTitle: "অডিও",
+        videoBoxTitle: "সাংকেতিক ভাষার ভিডিও",
+        noResults: "কোনো প্রকল্প পাওয়া যায়নি।",
+        loading: "লোড হচ্ছে...",
+        keywordPlaceholder: "যেমন: কৃষক, স্বাস্থ্য"
+    },
+    te: {
+        heroTitle: "ప్రభుత్వ పథకాలు",
+        heroSubtitle: "రాష్ట్రం & వర్గం ద్వారా పథకాలు కనుగొనండి • మీ భాషలో వినండి",
+        searchTitle: "పథకాలు శోధించండి",
+        labelState: "రాష్ట్రం ఎంచుకోండి",
+        labelCategory: "వర్గం ఎంచుకోండి",
+        labelKeyword: "కీవర్డ్",
+        optAllIndia: "మొత్తం భారతదేశం",
+        optAllCat: "అన్ని వర్గాలు",
+        btnSearch: "పథకాలు శోధించండి",
+        resultsHeading: "ఫలితాలు",
+        btnBackSearch: "శోధనకు తిరిగి వెళ్ళు",
+        btnBackResults: "ఫలితాలకు తిరిగి వెళ్ళు",
+        labelDesc: "వివరణ",
+        labelBenefits: "ప్రయోజనాలు",
+        labelEligibility: "అర్హత",
+        labelDocuments: "అవసరమైన పత్రాలు",
+        labelHowToApply: "దరఖాస్తు ఎలా చేయాలి",
+        btnSummary: "AI సారాంశం",
+        btnListen: "వినండి",
+        btnSign: "సంజ్ఞా భాష",
+        btnOfficial: "అధికారిక వెబ్‌సైట్",
+        summaryBoxTitle: "AI సారాంశం",
+        audioBoxTitle: "ఆడియో",
+        videoBoxTitle: "సంజ్ఞా భాష వీడియో",
+        noResults: "పథకాలు కనుగొనబడలేదు.",
+        loading: "లోడ్ అవుతోంది...",
+        keywordPlaceholder: "ఉదా: రైతు, ఆరోగ్యం"
+    },
+    mr: {
+        heroTitle: "सरकारी योजना",
+        heroSubtitle: "राज्य आणि श्रेणीनुसार योजना शोधा • आपल्या भाषेत ऐका",
+        searchTitle: "योजना शोधा",
+        labelState: "राज्य निवडा",
+        labelCategory: "श्रेणी निवडा",
+        labelKeyword: "कीवर्ड",
+        optAllIndia: "संपूर्ण भारत",
+        optAllCat: "सर्व श्रेणी",
+        btnSearch: "योजना शोधा",
+        resultsHeading: "निकाल",
+        btnBackSearch: "शोधावर परत जा",
+        btnBackResults: "निकालांवर परत जा",
+        labelDesc: "वर्णन",
+        labelBenefits: "फायदे",
+        labelEligibility: "पात्रता",
+        labelDocuments: "आवश्यक कागदपत्रे",
+        labelHowToApply: "अर्ज कसा करावा",
+        btnSummary: "AI सारांश",
+        btnListen: "ऐका",
+        btnSign: "सांकेतिक भाषा",
+        btnOfficial: "अधिकृत संकेतस्थळ",
+        summaryBoxTitle: "AI सारांश",
+        audioBoxTitle: "ऑडिओ",
+        videoBoxTitle: "सांकेतिक भाषा व्हिडिओ",
+        noResults: "कोणतीही योजना सापडली नाही.",
+        loading: "लोड होत आहे...",
+        keywordPlaceholder: "उदा: शेतकरी, आरोग्य"
+    },
+    ta: {
+        heroTitle: "அரசு திட்டங்கள்",
+        heroSubtitle: "மாநிலம் மற்றும் பிரிவின்படி திட்டங்களை தேடுங்கள் • உங்கள் மொழியில் கேளுங்கள்",
+        searchTitle: "திட்டங்களை தேடுங்கள்",
+        labelState: "மாநிலம் தேர்வு செய்யவும்",
+        labelCategory: "பிரிவு தேர்வு செய்யவும்",
+        labelKeyword: "முக்கிய வார்த்தை",
+        optAllIndia: "அனைத்து இந்தியா",
+        optAllCat: "அனைத்து பிரிவுகள்",
+        btnSearch: "திட்டங்களை தேடுங்கள்",
+        resultsHeading: "முடிவுகள்",
+        btnBackSearch: "தேடலுக்கு திரும்பு",
+        btnBackResults: "முடிவுகளுக்கு திரும்பு",
+        labelDesc: "விளக்கம்",
+        labelBenefits: "நன்மைகள்",
+        labelEligibility: "தகுதி",
+        labelDocuments: "தேவையான ஆவணங்கள்",
+        labelHowToApply: "விண்ணப்பிப்பது எப்படி",
+        btnSummary: "AI சுருக்கம்",
+        btnListen: "கேளுங்கள்",
+        btnSign: "சைகை மொழி",
+        btnOfficial: "அதிகாரப்பூர்வ இணையதளம்",
+        summaryBoxTitle: "AI சுருக்கம்",
+        audioBoxTitle: "ஆடியோ",
+        videoBoxTitle: "சைகை மொழி வீடியோ",
+        noResults: "திட்டங்கள் எதுவும் கிடைக்கவில்லை.",
+        loading: "ஏற்றுகிறது...",
+        keywordPlaceholder: "எ.கா: விவசாயி, சுகாதாரம்"
+    },
+    gu: {
+        heroTitle: "સરકારી યોજનાઓ",
+        heroSubtitle: "રાજ્ય અને શ્રેણી દ્વારા યોજનાઓ શોધો • તમારી ભાષામાં સાંભળો",
+        searchTitle: "યોજનાઓ શોધો",
+        labelState: "રાજ્ય પસંદ કરો",
+        labelCategory: "શ્રેણી પસંદ કરો",
+        labelKeyword: "કીવર્ડ",
+        optAllIndia: "સમગ્ર ભારત",
+        optAllCat: "બધી શ્રેણીઓ",
+        btnSearch: "યોજનાઓ શોધો",
+        resultsHeading: "પરિણામો",
+        btnBackSearch: "શોધ પર પાછા",
+        btnBackResults: "પરિણામો પર પાછા",
+        labelDesc: "વર્ણન",
+        labelBenefits: "લાભ",
+        labelEligibility: "પાત્રતા",
+        labelDocuments: "જરૂરી દસ્તાવેજો",
+        labelHowToApply: "અરજી કેવી રીતે કરવી",
+        btnSummary: "AI સારાંશ",
+        btnListen: "સાંભળો",
+        btnSign: "સાંકેતિક ભાષા",
+        btnOfficial: "સત્તાવાર વેબસાઇટ",
+        summaryBoxTitle: "AI સારાંશ",
+        audioBoxTitle: "ઓડિઓ",
+        videoBoxTitle: "સાંકેતિક ભાષા વીડિઓ",
+        noResults: "કોઈ યોજના મળી નથી.",
+        loading: "લોડ થઈ રહ્યું છે...",
+        keywordPlaceholder: "દા.ત: ખેડૂત, આરોગ્ય"
+    },
+    kn: {
+        heroTitle: "ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು",
+        heroSubtitle: "ರಾಜ್ಯ ಮತ್ತು ವರ್ಗದಿಂದ ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಿ • ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಕೇಳಿ",
+        searchTitle: "ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಿ",
+        labelState: "ರಾಜ್ಯ ಆಯ್ಕೆ ಮಾಡಿ",
+        labelCategory: "ವರ್ಗ ಆಯ್ಕೆ ಮಾಡಿ",
+        labelKeyword: "ಕೀವರ್ಡ್",
+        optAllIndia: "ಇಡೀ ಭಾರತ",
+        optAllCat: "ಎಲ್ಲಾ ವರ್ಗಗಳು",
+        btnSearch: "ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಿ",
+        resultsHeading: "ಫಲಿತಾಂಶಗಳು",
+        btnBackSearch: "ಹುಡುಕಾಟಕ್ಕೆ ಹಿಂತಿರುಗಿ",
+        btnBackResults: "ಫಲಿತಾಂಶಗಳಿಗೆ ಹಿಂತಿರುಗಿ",
+        labelDesc: "ವಿವರಣೆ",
+        labelBenefits: "ಪ್ರಯೋಜನಗಳು",
+        labelEligibility: "ಅರ್ಹತೆ",
+        labelDocuments: "ಅಗತ್ಯ ದಾಖಲೆಗಳು",
+        labelHowToApply: "ಅರ್ಜಿ ಹೇಗೆ ಸಲ್ಲಿಸುವುದು",
+        btnSummary: "AI ಸಾರಾಂಶ",
+        btnListen: "ಕೇಳಿ",
+        btnSign: "ಸಂಜ್ಞಾ ಭಾಷೆ",
+        btnOfficial: "ಅಧಿಕೃತ ವೆಬ್‌ಸೈಟ್",
+        summaryBoxTitle: "AI ಸಾರಾಂಶ",
+        audioBoxTitle: "ಆಡಿಯೋ",
+        videoBoxTitle: "ಸಂಜ್ಞಾ ಭಾಷೆ ವೀಡಿಯೊ",
+        noResults: "ಯಾವ ಯೋಜನೆಗಳೂ ಕಂಡುಬಂದಿಲ್ಲ.",
+        loading: "ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
+        keywordPlaceholder: "ಉದಾ: ರೈತ, ಆರೋಗ್ಯ"
+    },
+    ml: {
+        heroTitle: "സർക്കാർ പദ്ധതികൾ",
+        heroSubtitle: "സംസ്ഥാനവും വിഭാഗവും അനുസരിച്ച് പദ്ധതികൾ കണ്ടെത്തുക • നിങ്ങളുടെ ഭാഷയിൽ കേൾക്കൂ",
+        searchTitle: "പദ്ധതികൾ തിരയുക",
+        labelState: "സംസ്ഥാനം തിരഞ്ഞെടുക്കുക",
+        labelCategory: "വിഭാഗം തിരഞ്ഞെടുക്കുക",
+        labelKeyword: "കീവേഡ്",
+        optAllIndia: "ഇന്ത്യ മുഴുവൻ",
+        optAllCat: "എല്ലാ വിഭാഗങ്ങളും",
+        btnSearch: "പദ്ധതികൾ തിരയുക",
+        resultsHeading: "ഫലങ്ങൾ",
+        btnBackSearch: "തിരയലിലേക്ക് മടങ്ങുക",
+        btnBackResults: "ഫലങ്ങളിലേക്ക് മടങ്ങുക",
+        labelDesc: "വിവരണം",
+        labelBenefits: "ആനുകൂല്യങ്ങൾ",
+        labelEligibility: "യോഗ്യത",
+        labelDocuments: "ആവശ്യമായ രേഖകൾ",
+        labelHowToApply: "എങ്ങനെ അപേക്ഷിക്കാം",
+        btnSummary: "AI സംഗ്രഹം",
+        btnListen: "കേൾക്കൂ",
+        btnSign: "ആംഗ്യഭാഷ",
+        btnOfficial: "ഔദ്യോഗിക വെബ്സൈറ്റ്",
+        summaryBoxTitle: "AI സംഗ്രഹം",
+        audioBoxTitle: "ഓഡിയോ",
+        videoBoxTitle: "ആംഗ്യഭാഷ വീഡിയോ",
+        noResults: "പദ്ധതികൾ ഒന്നും കണ്ടെത്തിയില്ല.",
+        loading: "ലോഡ് ചെയ്യുന്നു...",
+        keywordPlaceholder: "ഉദാ: കർഷകൻ, ആരോഗ്യം"
+    },
+    pa: {
+        heroTitle: "ਸਰਕਾਰੀ ਯੋਜਨਾਵਾਂ",
+        heroSubtitle: "ਰਾਜ ਅਤੇ ਸ਼੍ਰੇਣੀ ਦੁਆਰਾ ਯੋਜਨਾਵਾਂ ਲੱਭੋ • ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਸੁਣੋ",
+        searchTitle: "ਯੋਜਨਾਵਾਂ ਖੋਜੋ",
+        labelState: "ਰਾਜ ਚੁਣੋ",
+        labelCategory: "ਸ਼੍ਰੇਣੀ ਚੁਣੋ",
+        labelKeyword: "ਕੀਵਰਡ",
+        optAllIndia: "ਸਾਰਾ ਭਾਰਤ",
+        optAllCat: "ਸਾਰੀਆਂ ਸ਼੍ਰੇਣੀਆਂ",
+        btnSearch: "ਯੋਜਨਾਵਾਂ ਖੋਜੋ",
+        resultsHeading: "ਨਤੀਜੇ",
+        btnBackSearch: "ਖੋਜ ਤੇ ਵਾਪਸ",
+        btnBackResults: "ਨਤੀਜਿਆਂ ਤੇ ਵਾਪਸ",
+        labelDesc: "ਵੇਰਵਾ",
+        labelBenefits: "ਲਾਭ",
+        labelEligibility: "ਯੋਗਤਾ",
+        labelDocuments: "ਲੋੜੀਂਦੇ ਦਸਤਾਵੇਜ਼",
+        labelHowToApply: "ਅਰਜ਼ੀ ਕਿਵੇਂ ਦੇਣੀ ਹੈ",
+        btnSummary: "AI ਸਾਰ",
+        btnListen: "ਸੁਣੋ",
+        btnSign: "ਸੰਕੇਤ ਭਾਸ਼ਾ",
+        btnOfficial: "ਅਧਿਕਾਰਤ ਵੈੱਬਸਾਈਟ",
+        summaryBoxTitle: "AI ਸਾਰ",
+        audioBoxTitle: "ਆਡੀਓ",
+        videoBoxTitle: "ਸੰਕੇਤ ਭਾਸ਼ਾ ਵੀਡੀਓ",
+        noResults: "ਕੋਈ ਯੋਜਨਾ ਨਹੀਂ ਮਿਲੀ।",
+        loading: "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...",
+        keywordPlaceholder: "ਜਿਵੇਂ: ਕਿਸਾਨ, ਸਿਹਤ"
+    },
+    or: {
+        heroTitle: "ସରକାରୀ ଯୋଜନା",
+        heroSubtitle: "ରାଜ୍ୟ ଏବଂ ବର୍ଗ ଅନୁସାରେ ଯୋଜନା ଖୋଜନ୍ତୁ • ଆପଣଙ୍କ ଭାଷାରେ ଶୁଣନ୍ତୁ",
+        searchTitle: "ଯୋଜନା ଖୋଜନ୍ତୁ",
+        labelState: "ରାଜ୍ୟ ବାଛନ୍ତୁ",
+        labelCategory: "ବର୍ଗ ବାଛନ୍ତୁ",
+        labelKeyword: "କୀୱର୍ଡ",
+        optAllIndia: "ସମ୍ପୂର୍ଣ ଭାରତ",
+        optAllCat: "ସମସ୍ତ ବର୍ଗ",
+        btnSearch: "ଯୋଜନା ଖୋଜନ୍ତୁ",
+        resultsHeading: "ଫଳାଫଳ",
+        btnBackSearch: "ଖୋଜିବାକୁ ଫେରନ୍ତୁ",
+        btnBackResults: "ଫଳାଫଳକୁ ଫେରନ୍ତୁ",
+        labelDesc: "ବିବରଣ",
+        labelBenefits: "ଲାଭ",
+        labelEligibility: "ଯୋଗ୍ୟତା",
+        labelDocuments: "ଆବଶ୍ୟକ ଦଲିଲ",
+        labelHowToApply: "କିପରି ଆବେଦନ କରିବେ",
+        btnSummary: "AI ସାରାଂଶ",
+        btnListen: "ଶୁଣନ୍ତୁ",
+        btnSign: "ସାଙ୍କେତିକ ଭାଷା",
+        btnOfficial: "ଅଧିକୃତ ୱେବସାଇଟ",
+        summaryBoxTitle: "AI ସାରାଂଶ",
+        audioBoxTitle: "ଅଡିଓ",
+        videoBoxTitle: "ସାଙ୍କେତିକ ଭାଷା ଭିଡିଓ",
+        noResults: "କୌଣସି ଯୋଜନା ମିଳିଲା ନାହିଁ।",
+        loading: "ଲୋଡ ହେଉଛି...",
+        keywordPlaceholder: "ଯଥା: କୃଷକ, ସ୍ୱାସ୍ଥ୍ୟ"
+    },
+    as: {
+        heroTitle: "চৰকাৰী আঁচনি",
+        heroSubtitle: "ৰাজ্য আৰু শ্ৰেণী অনুযায়ী আঁচনি বিচাৰক • আপোনাৰ ভাষাত শুনক",
+        searchTitle: "আঁচনি বিচাৰক",
+        labelState: "ৰাজ্য বাছনি কৰক",
+        labelCategory: "শ্ৰেণী বাছনি কৰক",
+        labelKeyword: "কীৱৰ্ড",
+        optAllIndia: "সমগ্ৰ ভাৰত",
+        optAllCat: "সকলো শ্ৰেণী",
+        btnSearch: "আঁচনি বিচাৰক",
+        resultsHeading: "ফলাফল",
+        btnBackSearch: "সন্ধানলৈ উভতি যাওক",
+        btnBackResults: "ফলাফললৈ উভতি যাওক",
+        labelDesc: "বিৱৰণ",
+        labelBenefits: "সুবিধা",
+        labelEligibility: "যোগ্যতা",
+        labelDocuments: "প্ৰয়োজনীয় নথিপত্ৰ",
+        labelHowToApply: "আবেদন কেনেকৈ কৰিব",
+        btnSummary: "AI সাৰাংশ",
+        btnListen: "শুনক",
+        btnSign: "সাংকেতিক ভাষা",
+        btnOfficial: "চৰকাৰী ৱেবছাইট",
+        summaryBoxTitle: "AI সাৰাংশ",
+        audioBoxTitle: "অডিঅ",
+        videoBoxTitle: "সাংকেতিক ভাষাৰ ভিডিঅ",
+        noResults: "কোনো আঁচনি পোৱা নগ'ল।",
+        loading: "লোড হৈছে...",
+        keywordPlaceholder: "যেনে: কৃষক, স্বাস্থ্য"
+    },
+    ur: {
+        heroTitle: "سرکاری اسکیمیں",
+        heroSubtitle: "ریاست اور زمرے کے مطابق اسکیمیں تلاش کریں • اپنی زبان میں سنیں",
+        searchTitle: "اسکیمیں تلاش کریں",
+        labelState: "ریاست منتخب کریں",
+        labelCategory: "زمرہ منتخب کریں",
+        labelKeyword: "کلیدی لفظ",
+        optAllIndia: "پورا ہندوستان",
+        optAllCat: "تمام زمرے",
+        btnSearch: "اسکیمیں تلاش کریں",
+        resultsHeading: "نتائج",
+        btnBackSearch: "تلاش پر واپس",
+        btnBackResults: "نتائج پر واپس",
+        labelDesc: "تفصیل",
+        labelBenefits: "فوائد",
+        labelEligibility: "اہلیت",
+        labelDocuments: "ضروری دستاویزات",
+        labelHowToApply: "درخواست کیسے دیں",
+        btnSummary: "AI خلاصہ",
+        btnListen: "سنیں",
+        btnSign: "اشاراتی زبان",
+        btnOfficial: "سرکاری ویب سائٹ",
+        summaryBoxTitle: "AI خلاصہ",
+        audioBoxTitle: "آڈیو",
+        videoBoxTitle: "اشاراتی زبان ویڈیو",
+        noResults: "کوئی اسکیم نہیں ملی۔",
+        loading: "لوڈ ہو رہا ہے...",
+        keywordPlaceholder: "مثلاً: کسان، صحت"
+    }
+};
+
+// ─────────────────────────────────────────────
+// APPLY UI LANGUAGE
+// ─────────────────────────────────────────────
+function applyUILanguage(lang) {
+    const s = UI_STRINGS[lang] || UI_STRINGS['en'];
+    const set = (id, val) => { const el = document.getElementById(id); if(el) el.textContent = val; };
+    const setPlaceholder = (id, val) => { const el = document.getElementById(id); if(el) el.placeholder = val; };
+
+    set('heroTitle', s.heroTitle);
+    set('heroSubtitle', s.heroSubtitle);
+    set('searchTitle', s.searchTitle);
+    set('labelState', s.labelState);
+    set('labelCategory', s.labelCategory);
+    set('labelKeyword', s.labelKeyword);
+    set('btnSearch', s.btnSearch);
+    set('resultsHeading', s.resultsHeading);
+    set('btnBackSearch', s.btnBackSearch);
+    set('btnBackResults', s.btnBackResults);
+    set('labelDesc', s.labelDesc);
+    set('labelBenefits', s.labelBenefits);
+    set('labelEligibility', s.labelEligibility);
+    set('labelDocuments', s.labelDocuments);
+    set('labelHowToApply', s.labelHowToApply);
+    set('btnSummary', s.btnSummary);
+    set('btnListen', s.btnListen);
+    set('btnSign', s.btnSign);
+    set('btnOfficial', s.btnOfficial);
+    set('summaryBoxTitle', s.summaryBoxTitle);
+    set('audioBoxTitle', s.audioBoxTitle);
+    set('videoBoxTitle', s.videoBoxTitle);
+    setPlaceholder('keywordInput', s.keywordPlaceholder);
+
+    // RTL for Urdu
+    document.body.style.direction = lang === 'ur' ? 'rtl' : 'ltr';
+
+    // Update first options in dropdowns
+    const stateOpt = document.querySelector('#stateSelect option[value=""]');
+    if(stateOpt) stateOpt.textContent = s.optAllIndia;
+    const catOpt = document.querySelector('#categorySelect option[value=""]');
+    if(catOpt) catOpt.textContent = s.optAllCat;
+}
+
+// ─────────────────────────────────────────────
+// VIEW SWITCHING (no modal — clean page navigation)
+// ─────────────────────────────────────────────
+function showSearch() {
+    document.getElementById('searchView').style.display = 'block';
+    document.getElementById('resultsView').style.display = 'none';
+    document.getElementById('detailView').style.display = 'none';
+    window.scrollTo(0, 0);
+}
+
+function showResults() {
+    document.getElementById('searchView').style.display = 'none';
+    document.getElementById('resultsView').style.display = 'block';
+    document.getElementById('detailView').style.display = 'none';
+    window.scrollTo(0, 0);
+    // Re-render results in current language
+    if(lastResults.length) displayResults(lastResults);
+}
+
+function showDetail() {
+    document.getElementById('searchView').style.display = 'none';
+    document.getElementById('resultsView').style.display = 'none';
+    document.getElementById('detailView').style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+// ─────────────────────────────────────────────
+// LOAD DROPDOWNS
+// ─────────────────────────────────────────────
+window.onload = async function() {
+    await loadStates();
+    await loadCategories();
+    applyUILanguage('en');
+};
+
+async function loadStates() {
+    try {
+        const res = await fetch('/api/states');
+        const data = await res.json();
+        const select = document.getElementById('stateSelect');
+        data.states.forEach(state => {
+            const opt = document.createElement('option');
+            opt.value = state;
+            opt.textContent = state;
+            select.appendChild(opt);
+        });
+    } catch(e) { console.error('loadStates:', e); }
+}
+
+async function loadCategories() {
+    try {
+        const res = await fetch('/api/categories');
+        const data = await res.json();
+        const select = document.getElementById('categorySelect');
+        data.categories.forEach(cat => {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            opt.textContent = cat;
+            select.appendChild(opt);
+        });
+    } catch(e) { console.error('loadCategories:', e); }
+}
+
+// ─────────────────────────────────────────────
+// SEARCH
+// ─────────────────────────────────────────────
+async function searchSchemes() {
+    const state = document.getElementById('stateSelect').value;
+    const category = document.getElementById('categorySelect').value;
+    const keyword = document.getElementById('keywordInput').value;
+
+    const btn = document.querySelector('.btn-search');
+    const s = UI_STRINGS[currentLanguage] || UI_STRINGS['en'];
+    btn.innerHTML = `<span class="spinner-sm d-inline-block me-2"></span>${s.loading}`;
+    btn.disabled = true;
+
+    try {
+        const response = await fetch('/api/schemes/search', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({state, category, keyword})
+        });
+        const data = await response.json();
+        lastResults = data.schemes || [];
+        displayResults(lastResults);
+        showResults();
+    } catch(e) {
+        alert('Error searching schemes. Please try again.');
+        console.error(e);
+    } finally {
+        btn.innerHTML = `<i class="fas fa-search me-2"></i>${s.btnSearch}`;
+        btn.disabled = false;
+    }
+}
+
+// ─────────────────────────────────────────────
+// DISPLAY RESULTS
+// ─────────────────────────────────────────────
+function displayResults(schemes) {
+    const schemesList = document.getElementById('schemesList');
+    document.getElementById('resultCount').textContent = schemes.length;
+    schemesList.innerHTML = '';
+
+    if (!schemes.length) {
+        const s = UI_STRINGS[currentLanguage] || UI_STRINGS['en'];
+        schemesList.innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-search-minus d-block"></i>
+                <p>${s.noResults}</p>
+            </div>`;
+        return;
+    }
+
+    schemes.forEach(scheme => {
+        const card = document.createElement('div');
+        card.className = 'scheme-card';
+        const desc = scheme.description ? scheme.description.substring(0, 160) + '...' : '';
+        card.innerHTML = `
+            <a class="scheme-card-title" onclick="showSchemeDetails('${scheme.id}')" role="button">
+                ${scheme.name}
+            </a>
+            <p>${desc}</p>
+            <div>
+                <span class="badge-state"><i class="fas fa-map-marker-alt me-1"></i>${scheme.state || 'All India'}</span>
+                <span class="badge-cat"><i class="fas fa-tag me-1"></i>${scheme.category || ''}</span>
+            </div>
+        `;
+        schemesList.appendChild(card);
+    });
+}
+
+// ─────────────────────────────────────────────
+// SHOW SCHEME DETAILS
+// ─────────────────────────────────────────────
+async function showSchemeDetails(schemeId) {
+    try {
+        const response = await fetch(`/api/schemes/${schemeId}?language=${currentLanguage}`);
+        const data = await response.json();
+        if (!data.success) { alert('Could not load scheme details.'); return; }
+
+        currentScheme = data.scheme;
+
+        document.getElementById('detailName').textContent = currentScheme.name;
+        document.getElementById('detailDescription').textContent = currentScheme.description || '-';
+        document.getElementById('detailBenefits').textContent = currentScheme.benefits || '-';
+        document.getElementById('detailEligibility').textContent = currentScheme.eligibility || '-';
+        document.getElementById('detailDocuments').textContent =
+            Array.isArray(currentScheme.documents)
+                ? currentScheme.documents.join(', ')
+                : (currentScheme.documents || '-');
+        document.getElementById('detailHowToApply').textContent = currentScheme.how_to_apply || '-';
+
+        // Badges
+        document.getElementById('detailBadges').innerHTML = `
+            <span class="badge-state"><i class="fas fa-map-marker-alt me-1"></i>${currentScheme.state || 'All India'}</span>
+            <span class="badge-cat ms-1"><i class="fas fa-tag me-1"></i>${currentScheme.category || ''}</span>
+        `;
+
+        // Official link
+        document.getElementById('officialLink').href = currentScheme.official_link || '#';
+
+        // Reset output boxes
+        ['summaryBox','audioBox','videoBox'].forEach(id => {
+            document.getElementById(id).classList.remove('show');
+        });
+
+        showDetail();
+    } catch(e) {
+        console.error('showSchemeDetails:', e);
+        alert('Error loading scheme details.');
+    }
+}
+
+// ─────────────────────────────────────────────
+// ACTIONS
+// ─────────────────────────────────────────────
+async function getSummary() {
+    const box = document.getElementById('summaryBox');
+    const text = document.getElementById('summaryText');
+    box.classList.add('show');
+    text.innerHTML = `<div class="spin-wrap"><span class="spinner-sm"></span> Generating summary...</div>`;
+
+    try {
+        const res = await fetch('/api/summarize', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({scheme_id: currentScheme.id, language: currentLanguage})
+        });
+        const data = await res.json();
+        text.textContent = data.success ? data.summary : 'Could not generate summary.';
+    } catch(e) { text.textContent = 'Error generating summary.'; }
+}
+
+async function getAudio() {
+    const box = document.getElementById('audioBox');
+    const player = document.getElementById('audioPlayer');
+    box.classList.add('show');
+    player.src = '';
+    player.insertAdjacentHTML('beforebegin', '<div class="spin-wrap" id="audioSpin"><span class="spinner-sm"></span> Generating audio...</div>');
+
+    const text = `${currentScheme.name}. ${currentScheme.description}. ${currentScheme.benefits}.`;
+    try {
+        const res = await fetch('/api/text-to-speech', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({text, language: currentLanguage})
+        });
+        const data = await res.json();
+        const spin = document.getElementById('audioSpin');
+        if(spin) spin.remove();
+        if(data.success) {
+            player.src = data.audio_url;
+            player.play();
+        }
+    } catch(e) { console.error(e); }
+}
+
+async function getSignLanguage() {
+    const box = document.getElementById('videoBox');
+    const player = document.getElementById('videoPlayer');
+    const meta = document.getElementById('videoMeta');
+    box.classList.add('show');
+    player.src = '';
+    meta.textContent = '';
+    meta.innerHTML = '<div class="spin-wrap"><span class="spinner-sm"></span> Generating sign language video...</div>';
+
+    const text = `${currentScheme.name}. ${currentScheme.benefits}.`;
+    try {
+        const res = await fetch('/api/sign-language', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({text})
+        });
+        const data = await res.json();
+        if(data.success) {
+            meta.innerHTML = `<span><strong>Words:</strong> ${data.words_count} &nbsp;|&nbsp; <strong>Duration:</strong> ${data.duration}s</span><br><span><strong>Gestures:</strong> <span style="word-break:break-all;overflow-wrap:anywhere;">${data.gestures_used}</span></span>`;
+            player.src = data.video_url;
+            player.play();
+        } else {
+            meta.textContent = 'Could not generate video.';
+        }
+    } catch(e) { meta.textContent = 'Error generating video.'; }
+}
+
+// ─────────────────────────────────────────────
+// LANGUAGE CHANGE
+// ─────────────────────────────────────────────
+function changeLanguage() {
+    currentLanguage = document.getElementById('langSelect').value;
+    applyUILanguage(currentLanguage);
+
+    // If on detail page, reload scheme in new language
+    if(currentScheme && document.getElementById('detailView').style.display !== 'none') {
+        showSchemeDetails(currentScheme.id);
+    }
+    // If on results page, re-render cards
+    if(document.getElementById('resultsView').style.display !== 'none' && lastResults.length) {
+        displayResults(lastResults);
+    }
+}
+    </script>
+</body>
+</html>

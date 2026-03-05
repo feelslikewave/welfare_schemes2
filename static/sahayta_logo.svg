@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" width="280" height="80">
+  <defs>
+    <!-- Saffron to deep orange gradient for the hand/symbol -->
+    <linearGradient id="saffronGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF9933;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e67300;stop-opacity:1" />
+    </linearGradient>
+    <!-- Navy to deep blue gradient for text -->
+    <linearGradient id="navyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#000080;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a237e;stop-opacity:1" />
+    </linearGradient>
+    <!-- Green gradient -->
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#138808;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1b5e20;stop-opacity:1" />
+    </linearGradient>
+    <!-- Glow filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Drop shadow -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="rgba(0,0,128,0.25)"/>
+    </filter>
+  </defs>
+
+  <!-- ── ICON: Helping hand with Ashoka Chakra spark ── -->
+  <!-- Outer circle background -->
+  <circle cx="40" cy="40" r="34" fill="url(#navyGrad)" filter="url(#shadow)"/>
+
+  <!-- Tricolor arc ring on the circle -->
+  <!-- Saffron arc (top) -->
+  <path d="M 13 40 A 27 27 0 0 1 40 13" stroke="#FF9933" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- White arc (middle) -->
+  <path d="M 40 13 A 27 27 0 0 1 67 40" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- Green arc (bottom) -->
+  <path d="M 67 40 A 27 27 0 0 1 40 67" stroke="#138808" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <!-- Navy arc (close left) -->
+  <path d="M 40 67 A 27 27 0 0 1 13 40" stroke="#000080" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+  <!-- Helping hand (open palm) - white -->
+  <!-- Palm base -->
+  <ellipse cx="40" cy="47" rx="11" ry="8" fill="white" opacity="0.95"/>
+  <!-- Thumb -->
+  <ellipse cx="27.5" cy="43" rx="3.5" ry="6" rx="3" fill="white" opacity="0.95" transform="rotate(-20 27.5 43)"/>
+  <!-- Index finger -->
+  <rect x="30" y="28" width="5" height="16" rx="2.5" fill="white" opacity="0.95"/>
+  <!-- Middle finger -->
+  <rect x="37" y="25" width="5" height="19" rx="2.5" fill="white" opacity="0.95"/>
+  <!-- Ring finger -->
+  <rect x="44" y="27" width="5" height="17" rx="2.5" fill="white" opacity="0.95"/>
+  <!-- Pinky -->
+  <rect x="51" y="31" width="4" height="13" rx="2" fill="white" opacity="0.95"/>
+
+  <!-- Small Ashoka Chakra dot in centre of palm -->
+  <circle cx="40" cy="47" r="3.5" fill="url(#navyGrad)"/>
+  <!-- Chakra spokes (8 spokes) -->
+  <g stroke="white" stroke-width="0.7" opacity="0.9">
+    <line x1="40" y1="44.5" x2="40" y2="43"/>
+    <line x1="40" y1="49.5" x2="40" y2="51"/>
+    <line x1="37.5" y1="47" x2="36" y2="47"/>
+    <line x1="42.5" y1="47" x2="44" y2="47"/>
+    <line x1="38.4" y1="45.4" x2="37.3" y2="44.3"/>
+    <line x1="41.6" y1="48.6" x2="42.7" y2="49.7"/>
+    <line x1="41.6" y1="45.4" x2="42.7" y2="44.3"/>
+    <line x1="38.4" y1="48.6" x2="37.3" y2="49.7"/>
+  </g>
+
+  <!-- AI spark dots (top right of circle) -->
+  <circle cx="58" cy="18" r="3" fill="#FF9933" filter="url(#glow)"/>
+  <circle cx="64" cy="24" r="2" fill="#FF9933" opacity="0.7"/>
+  <circle cx="62" cy="15" r="1.5" fill="white" opacity="0.8"/>
+
+  <!-- ── TEXT: SAHAYTA ── -->
+  <text
+    x="86" y="36"
+    font-family="'Baloo 2', 'Arial Rounded MT Bold', sans-serif"
+    font-size="26"
+    font-weight="800"
+    letter-spacing="1.5"
+    fill="url(#navyGrad)"
+    filter="url(#shadow)">SAHAYTA</text>
+
+  <!-- Underline tricolor bar below SAHAYTA -->
+  <rect x="86" y="40" width="62" height="3" rx="1.5" fill="#FF9933"/>
+  <rect x="148" y="40" width="62" height="3" rx="1.5" fill="#138808"/>
+
+  <!-- ── TEXT: AI ── -->
+  <text
+    x="214" y="36"
+    font-family="'Baloo 2', 'Arial Rounded MT Bold', sans-serif"
+    font-size="26"
+    font-weight="800"
+    letter-spacing="1"
+    fill="url(#saffronGrad)"
+    filter="url(#glow)">AI</text>
+
+  <!-- ── TAGLINE ── -->
+  <text
+    x="86" y="60"
+    font-family="'Hind', 'Arial', sans-serif"
+    font-size="10"
+    font-weight="500"
+    letter-spacing="2.5"
+    fill="#555"
+    opacity="0.9">WELFARE FOR EVERY INDIAN</text>
+
+  <!-- Small dot separator between tagline words (decorative) -->
+  <circle cx="86" cy="70" r="1.5" fill="#FF9933" opacity="0.6"/>
+  <circle cx="93" cy="70" r="1.5" fill="#000080" opacity="0.6"/>
+  <circle cx="100" cy="70" r="1.5" fill="#138808" opacity="0.6"/>
+</svg>
