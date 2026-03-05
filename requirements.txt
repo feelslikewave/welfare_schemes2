@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+pydantic
+python-multipart
+
+numpy
+opencv-python
+imageio
+pillow
+
+gtts
+googletrans==4.0.0rc1
+deep-translator
+
+beautifulsoup4
+requests
+jinja2
