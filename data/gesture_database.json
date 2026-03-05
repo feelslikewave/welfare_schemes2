@@ -1,0 +1,257 @@
+{
+  "government": {
+    "type": "official_salute",
+    "movement": "hand_to_forehead",
+    "frames": 40
+  },
+  "pradhan": {
+    "type": "leader",
+    "movement": "forward_gesture",
+    "frames": 35
+  },
+  "mantri": {
+    "type": "minister",
+    "movement": "respectful_gesture",
+    "frames": 35
+  },
+  "kisan": {
+    "type": "farmer",
+    "movement": "digging_motion",
+    "frames": 40
+  },
+  "farmer": {
+    "type": "farmer",
+    "movement": "digging_motion",
+    "frames": 40
+  },
+  "farmers": {
+    "type": "farmer_plural",
+    "movement": "digging_sweep",
+    "frames": 40
+  },
+  "samman": {
+    "type": "respect",
+    "movement": "bow_gesture",
+    "frames": 30
+  },
+  "nidhi": {
+    "type": "fund",
+    "movement": "container_shape",
+    "frames": 30
+  },
+  "scheme": {
+    "type": "plan",
+    "movement": "outline_gesture",
+    "frames": 35
+  },
+  "yojana": {
+    "type": "plan",
+    "movement": "outline_gesture",
+    "frames": 35
+  },
+  "rupees": {
+    "type": "money",
+    "movement": "rub_fingers",
+    "frames": 30
+  },
+  "rs": {
+    "type": "money",
+    "movement": "rub_fingers",
+    "frames": 25
+  },
+  "lakh": {
+    "type": "large_number",
+    "movement": "expanding_gesture",
+    "frames": 30
+  },
+  "crore": {
+    "type": "huge_number",
+    "movement": "wide_expanding",
+    "frames": 30
+  },
+  "6000": {
+    "type": "number",
+    "movement": "counting",
+    "frames": 30
+  },
+  "thousand": {
+    "type": "thousand",
+    "movement": "multiple_gesture",
+    "frames": 28
+  },
+  "year": {
+    "type": "time",
+    "movement": "circle_motion",
+    "frames": 25
+  },
+  "per": {
+    "type": "division",
+    "movement": "splitting_gesture",
+    "frames": 20
+  },
+  "three": {
+    "type": "number",
+    "movement": "three_fingers",
+    "frames": 20
+  },
+  "financial": {
+    "type": "money_related",
+    "movement": "currency_flip",
+    "frames": 35
+  },
+  "assistance": {
+    "type": "help",
+    "movement": "supporting_hands",
+    "frames": 35
+  },
+  "benefit": {
+    "type": "advantage",
+    "movement": "receiving_gesture",
+    "frames": 30
+  },
+  "benefits": {
+    "type": "advantages",
+    "movement": "multiple_receive",
+    "frames": 30
+  },
+  "provides": {
+    "type": "giving",
+    "movement": "offering_gesture",
+    "frames": 30
+  },
+  "support": {
+    "type": "help",
+    "movement": "lift_up_gesture",
+    "frames": 30
+  },
+  "housing": {
+    "type": "house",
+    "movement": "roof_shape",
+    "frames": 35
+  },
+  "awas": {
+    "type": "house",
+    "movement": "roof_shape",
+    "frames": 35
+  },
+  "health": {
+    "type": "medical",
+    "movement": "cross_sign",
+    "frames": 30
+  },
+  "arogya": {
+    "type": "health",
+    "movement": "wellness_gesture",
+    "frames": 30
+  },
+  "education": {
+    "type": "learning",
+    "movement": "book_reading",
+    "frames": 35
+  },
+  "shiksha": {
+    "type": "education",
+    "movement": "book_reading",
+    "frames": 35
+  },
+  "employment": {
+    "type": "work",
+    "movement": "working_motion",
+    "frames": 35
+  },
+  "rozgar": {
+    "type": "employment",
+    "movement": "working_motion",
+    "frames": 35
+  },
+  "free": {
+    "type": "no_cost",
+    "movement": "waving_away",
+    "frames": 25
+  },
+  "treatment": {
+    "type": "cure",
+    "movement": "healing_gesture",
+    "frames": 30
+  },
+  "hospital": {
+    "type": "medical_center",
+    "movement": "h_sign_cross",
+    "frames": 30
+  },
+  "coverage": {
+    "type": "protection",
+    "movement": "covering_gesture",
+    "frames": 30
+  },
+  "jan": {
+    "type": "people",
+    "movement": "gathering_gesture",
+    "frames": 25
+  },
+  "all": {
+    "type": "complete",
+    "movement": "encompassing_circle",
+    "frames": 25
+  },
+  "india": {
+    "type": "country",
+    "movement": "map_outline",
+    "frames": 30
+  },
+  "gramin": {
+    "type": "rural",
+    "movement": "village_gesture",
+    "frames": 30
+  },
+  "rural": {
+    "type": "countryside",
+    "movement": "field_gesture",
+    "frames": 30
+  },
+  "family": {
+    "type": "relatives",
+    "movement": "circle_together",
+    "frames": 30
+  },
+  "families": {
+    "type": "households",
+    "movement": "multiple_circles",
+    "frames": 30
+  },
+  "women": {
+    "type": "female",
+    "movement": "female_sign",
+    "frames": 30
+  },
+  "children": {
+    "type": "kids",
+    "movement": "small_height",
+    "frames": 30
+  },
+  "landholding": {
+    "type": "property",
+    "movement": "area_gesture",
+    "frames": 35
+  },
+  "eligible": {
+    "type": "qualified",
+    "movement": "checkmark",
+    "frames": 28
+  },
+  "eligibility": {
+    "type": "qualification",
+    "movement": "checking_list",
+    "frames": 30
+  },
+  "apply": {
+    "type": "submit",
+    "movement": "paper_forward",
+    "frames": 28
+  },
+  "installments": {
+    "type": "parts",
+    "movement": "dividing_gesture",
+    "frames": 30
+  }
+}
